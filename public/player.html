@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<h2>PIN</h2>
+<input id="pin"><br>
+
+<h2>Tên</h2>
+<input id="name"><br>
+
+<button onclick="join()">Vào</button>
+
+<h2>5 + 3 = ?</h2>
+<button onclick="answer(true)">8</button>
+<button onclick="answer(false)">9</button>
+
+<script src="/socket.io/socket.io.js"></script>
+<script>
+const socket = io();
+let pin, name;
+
+function join() {
+    pin = document.getElementById("pin").value;
+    name = document.getElementById("name").value;
+    socket.emit("joinRoom", {pin, name});
+}
+
+function answer(correct) {
+    socket.emit("answer", {pin, name, correct});
+}
+</script>
+
+</body>
+</html>
